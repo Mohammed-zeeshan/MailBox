@@ -1,22 +1,16 @@
 import { render,screen } from "@testing-library/react";
 import Signup from "./Signup";
 
-describe( 'Signup component', () => { 
-    test('renders SignUp heading text',() => {
+describe( 'Login component', () => { 
+    test('renders Login heading text',() => {
         render(<Signup />);
     
-        const buttonElement = screen.getByText(`Don't have account? Sign Up`);
-        userEvent.click(buttonElement);
-    
-        const outputElement = screen.getByText('SignUp')
+        const outputElement = screen.getByText('Login')
         expect(outputElement).toBeInTheDocument();
     })
     
     test('renders Your Email heading text',() => {
         render(<Signup />);
-    
-        const buttonElement = screen.getByText(`Don't have account? Sign Up`);
-        userEvent.click(buttonElement);
     
         const outputElement = screen.getByText('Your Email')
         expect(outputElement).toBeInTheDocument();
@@ -25,26 +19,17 @@ describe( 'Signup component', () => {
     test('renders Your Password heading text',() => {
         render(<Signup />);
     
-        const buttonElement = screen.getByText(`Don't have account? Sign Up`);
-        userEvent.click(buttonElement);
-    
         const outputElement = screen.getByText('Your Password')
         expect(outputElement).toBeInTheDocument();
     })
-    
-    test('renders Confirm Password heading text',() => {
-        render(<Signup />);
-    
-        const buttonElement = screen.getByText(`Don't have account? Sign Up`);
-        userEvent.click(buttonElement);
-    
-        const outputElement = screen.getByText('Confirm Password')
-        expect(outputElement).toBeInTheDocument();
-    })
-    test('renders Signup title', () => {
+    test('renders Login button', () => {
         render(<Signup />);
 
-        const textElement = screen.getByText('SignUp');
+        const textElement = screen.getByText('Login');
+        expect(textElement).toBeInTheDocument();
+    })
+    test('render Forgot password', () => {
+        const textElement = screen.getByText('Forgot Password?');
         expect(textElement).toBeInTheDocument();
     })
 })
