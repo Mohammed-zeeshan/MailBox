@@ -32,6 +32,9 @@ const Inbox = (props) => {
         emailsHandler();
     }, [emailsHandler])
     console.log(items)
+    setInterval(() => {
+        emailsHandler()
+      }, 2000)
   return (
     <div className='p-2 border-bottom'>
         {items.map((data) => (
