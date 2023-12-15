@@ -1,18 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import useFetch from './useFetch';
 
 const Inbox = (props) => {
     const [items, setItems] = useState([]);
-    const emailsHandler = useCallback(async() => {
-        try {
-            const response = await fetch('https://mailbox-dc43d-default-rtdb.firebaseio.com/Mail.json')
-        if (!response.ok){
-            throw new Error('Something went wrong'); 
-        }
-        const data = await response.json();
+    const [data] = useFetch('https://mailbox-dc43d-default-rtdb.firebaseio.com/Mail.json')
+    console.log(data)
+    useEffect(() => {
         const loadedItems = [];
         for (const key in data) {
-            console.log(data[key].to)
-            if (data[key].to === props.mail){
+            if (data[key].to === 'mz360844@gmail.com'){
                 loadedItems.push({
                     id: key,
                     from: data[key].from,
@@ -21,26 +18,18 @@ const Inbox = (props) => {
                     to: data[key].to,
                 })
             }
+            console.log(data[key].to)
         }
         setItems(loadedItems);
-        }
-        catch(err) {
-            console.log(err.message);
-        }
-    }, [props.mail])
-    useEffect(() => {
-        emailsHandler();
-    }, [emailsHandler])
-    console.log(items)
-    setInterval(() => {
-        emailsHandler()
-      }, 2000)
+    }, [])
   return (
-    <div className='p-2 border-bottom'>
+    <div className='p-2'>
         {items.map((data) => (
-            <label>{data.from} {data.subject}</label>
+            <div key={data.id}><NavLink className='btn' to={`Read/${data.id}`}>
+              <p>{data.from} {data.subject} {data.mail}</p>
+            </NavLink></div>
         ))}
-    </div>
+      </div>
   )
 }
 
